@@ -11,13 +11,22 @@ import { LuSunrise, LuSunset } from "react-icons/lu";
 const Home = () => {
   const [city, setCity] = useState("");
   const dispatch = useDispatch();
-
   const { data, loading, error } = useSelector((state) => state.weather);
 
+  //
+  // useEffect(()=>{
+  //     document.title("Home | Weather-X")
+  // },[])
+
+  //   Set search value to setCity
   const handleInputChange = (e) => setCity(e.target.value);
+
+  //   Search Functionalities
   const handleSearch = () => {
     if (city.trim()) dispatch(fetchWeather(city));
   };
+
+  //   Key funtionalities
   const handleKeyDown = (e) => {
     if (e.key === "Enter") handleSearch();
   };
@@ -98,7 +107,7 @@ const Home = () => {
               {/* Details */}
               <div className="grid grid-cols-2 gap-4 text-sm sm:text-base text-white/90">
                 <p className="flex items-center gap-1">
-                  <IoWaterOutline className="text-blue-500" />
+                  <IoWaterOutline />
                   Humidity:{" "}
                   <span className="font-semibold text-green-200">
                     {data?.main?.humidity}%
