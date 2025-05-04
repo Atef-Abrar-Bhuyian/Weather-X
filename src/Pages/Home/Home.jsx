@@ -7,28 +7,55 @@ import { IoWaterOutline } from "react-icons/io5";
 import { PiTrendDown, PiTrendUpLight } from "react-icons/pi";
 import { WiDayWindy } from "react-icons/wi";
 import { LuSunrise, LuSunset } from "react-icons/lu";
+import { RxCross1 } from "react-icons/rx";
 
 const Home = () => {
   const [city, setCity] = useState("");
+  const [previousCities, setPreviousCities] = useState(
+    JSON.parse(localStorage.getItem("previousCities")) || []
+  );
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector((state) => state.weather);
 
-  //
   useEffect(() => {
     document.title = "Home | Weather-X";
   }, []);
 
-  //   Set search value to setCity
+  // Set search value to setCity
   const handleInputChange = (e) => setCity(e.target.value);
 
-  //   Search Functionalities
+  // Save city to previous cities and localStorage
   const handleSearch = () => {
-    if (city.trim()) dispatch(fetchWeather(city));
+    if (city.trim()) {
+      dispatch(fetchWeather(city));
+
+      // Add city to previous cities list if it's not already there
+      setPreviousCities((prev) => {
+        const newCities = [city, ...prev.filter((item) => item !== city)];
+        localStorage.setItem("previousCities", JSON.stringify(newCities));
+        return newCities;
+      });
+    }
   };
 
-  //   Key funtionalities
+  // Key functionalities
   const handleKeyDown = (e) => {
     if (e.key === "Enter") handleSearch();
+  };
+
+  //   Previous Cities
+  const handlePreviousCityClick = (prevCity) => {
+    setCity(prevCity);
+    dispatch(fetchWeather(prevCity));
+  };
+
+  // Remove city from search history
+  const handleDeleteCity = (cityToDelete) => {
+    setPreviousCities((prev) => prev.filter((city) => city !== cityToDelete));
+    localStorage.setItem(
+      "previousCities",
+      JSON.stringify(previousCities.filter((city) => city !== cityToDelete))
+    );
   };
 
   return (
@@ -70,6 +97,32 @@ const Home = () => {
             ⚠️ {error}
           </p>
         )}
+
+        {/* Previous Cities */}
+        <div className="mt-4">
+          {previousCities.length > 0 && (
+            <h3 className="text-white text-lg font-semibold">
+              Previous Searches
+            </h3>
+          )}
+          <div className="flex flex-wrap gap-2 mt-2">
+            {previousCities.length > 0 &&
+              previousCities.map((city, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <button
+                    onClick={() => handlePreviousCityClick(city)}
+                    className="bg-green-500 text-white px-4 py-2 rounded-full shadow-md hover:bg-green-600 flex items-center justify-center gap-2"
+                  >
+                    {city}
+                    <RxCross1
+                      onClick={() => handleDeleteCity(city)}
+                      className="text-white cursor-pointer text-xs"
+                    />
+                  </button>
+                </div>
+              ))}
+          </div>
+        </div>
 
         {/* Weather Result */}
         <div className="mt-8 text-white flex justify-center w-full px-2 mb-10">
