@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWeather } from "../../Redux/weatherSlice";
@@ -14,9 +14,9 @@ const Home = () => {
   const { data, loading, error } = useSelector((state) => state.weather);
 
   //
-  // useEffect(()=>{
-  //     document.title("Home | Weather-X")
-  // },[])
+  useEffect(() => {
+    document.title = "Home | Weather-X";
+  }, []);
 
   //   Set search value to setCity
   const handleInputChange = (e) => setCity(e.target.value);
