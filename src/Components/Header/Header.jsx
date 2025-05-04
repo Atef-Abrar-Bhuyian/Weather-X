@@ -4,7 +4,7 @@ import { FaMapMarkedAlt, FaCog } from "react-icons/fa";
 const Header = () => {
   return (
     <nav className="bg-green-950/90 p-4 text-white">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
+      <div className="w-11/12 mx-auto flex justify-between items-center">
         {/* Left Side: Weather-X */}
         <div className="text-2xl font-bold">Weather-X</div>
 
