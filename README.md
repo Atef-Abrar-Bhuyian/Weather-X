@@ -2,11 +2,13 @@
 
 ![Weather-X Screenshot](./public/WeatherX.png)
 
+---
+
 ## Description
 
 Weather-X is a weather application that allows users to check weather information for various cities around the world. The app provides current weather data and dynamically updates based on user-selected or input locations.
 
-----
+---
 
 ## Frontend API
 
@@ -17,6 +19,8 @@ Weather-X is a weather application that allows users to check weather informatio
 - **React Icons**: A set of popular icons for React applications.
 - **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
 - **Vite**: A fast build tool and development server for modern web projects.
+
+---
 
 ## How to Install
 
@@ -38,10 +42,19 @@ Weather-X is a weather application that allows users to check weather informatio
    Create a .env file in the root directory and add your OpenWeatherMap API key:
 
    ```bash
-   VITE_OPENWEATHER_API=your_openweather_api_key
+   VITE_OPENWEATHER_API=your_openweather_api_key_here
    ```
 
 4. **Run the application:**
    ```bash
    npm run dev
    ```
+
+---
+
+## Live Website
+
+You can view the live version of Weather-X here:  
+[**Weather-X Live**](https://weather-x001.netlify.app/)
+
+---
